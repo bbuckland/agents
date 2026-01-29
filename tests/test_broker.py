@@ -292,3 +292,87 @@ class TestOrderValidation:
                 side=OrderSide.BUY,
                 notional=Decimal("100.00"),
             )
+
+
+class TestBrokerErrorHandling:
+    """Tests for broker error handling."""
+
+    @patch("quant.broker.TradingClient")
+    def test_get_account_wraps_connection_error(
+        self, mock_trading_client: MagicMock
+    ) -> None:
+        """get_account should wrap connection errors in BrokerConnectionError."""
+        from quant.broker import AlpacaClient
+        from quant.exceptions import BrokerConnectionError
+
+        mock_client = MagicMock()
+        mock_client.get_account.side_effect = Exception("Connection refused")
+        mock_trading_client.return_value = mock_client
+
+        client = AlpacaClient(api_key="test", secret_key="test", paper=True)
+
+        with pytest.raises(BrokerConnectionError) as exc_info:
+            client.get_account()
+
+        assert "Connection refused" in str(exc_info.value.original_error)
+
+    @patch("quant.broker.TradingClient")
+    def test_get_positions_wraps_connection_error(
+        self, mock_trading_client: MagicMock
+    ) -> None:
+        """get_positions should wrap connection errors in BrokerConnectionError."""
+        from quant.broker import AlpacaClient
+        from quant.exceptions import BrokerConnectionError
+
+        mock_client = MagicMock()
+        mock_client.get_all_positions.side_effect = Exception("Timeout")
+        mock_trading_client.return_value = mock_client
+
+        client = AlpacaClient(api_key="test", secret_key="test", paper=True)
+
+        with pytest.raises(BrokerConnectionError) as exc_info:
+            client.get_positions()
+
+        assert "Timeout" in str(exc_info.value.original_error)
+
+    @patch("quant.broker.TradingClient")
+    def test_submit_order_wraps_order_error(
+        self, mock_trading_client: MagicMock
+    ) -> None:
+        """submit_market_order should wrap order errors in BrokerOrderError."""
+        from quant.broker import AlpacaClient, OrderSide
+        from quant.exceptions import BrokerOrderError
+
+        mock_client = MagicMock()
+        mock_client.submit_order.side_effect = Exception("Insufficient funds")
+        mock_trading_client.return_value = mock_client
+
+        client = AlpacaClient(api_key="test", secret_key="test", paper=True)
+
+        with pytest.raises(BrokerOrderError) as exc_info:
+            client.submit_market_order(
+                ticker="AAPL",
+                side=OrderSide.BUY,
+                notional=Decimal("1000000"),
+            )
+
+        assert "Insufficient funds" in str(exc_info.value.original_error)
+
+    @patch("quant.broker.TradingClient")
+    def test_close_position_wraps_error(
+        self, mock_trading_client: MagicMock
+    ) -> None:
+        """close_position should wrap errors in BrokerOrderError."""
+        from quant.broker import AlpacaClient
+        from quant.exceptions import BrokerOrderError
+
+        mock_client = MagicMock()
+        mock_client.close_position.side_effect = Exception("Position not found")
+        mock_trading_client.return_value = mock_client
+
+        client = AlpacaClient(api_key="test", secret_key="test", paper=True)
+
+        with pytest.raises(BrokerOrderError) as exc_info:
+            client.close_position("AAPL")
+
+        assert "Position not found" in str(exc_info.value.original_error)

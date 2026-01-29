@@ -9,6 +9,7 @@ from alpaca.trading.client import TradingClient
 from alpaca.trading.enums import OrderSide as AlpacaOrderSide
 from alpaca.trading.requests import ClosePositionRequest, MarketOrderRequest
 
+from quant.exceptions import BrokerConnectionError, BrokerOrderError
 from quant.models import Position
 
 
@@ -62,30 +63,46 @@ class AlpacaClient:
 
         Returns:
             AccountInfo with cash, equity, and buying power.
+
+        Raises:
+            BrokerConnectionError: If the API call fails.
         """
-        account = self._client.get_account()
-        return AccountInfo(
-            cash=Decimal(str(account.cash)),
-            equity=Decimal(str(account.equity)),
-            buying_power=Decimal(str(account.buying_power)),
-        )
+        try:
+            account = self._client.get_account()
+            return AccountInfo(
+                cash=Decimal(str(account.cash)),
+                equity=Decimal(str(account.equity)),
+                buying_power=Decimal(str(account.buying_power)),
+            )
+        except Exception as e:
+            raise BrokerConnectionError(
+                f"Failed to get account: {e}", original_error=e
+            ) from e
 
     def get_positions(self) -> list[Position]:
         """Get all open positions.
 
         Returns:
             List of Position objects.
+
+        Raises:
+            BrokerConnectionError: If the API call fails.
         """
-        positions = self._client.get_all_positions()
-        return [
-            Position(
-                ticker=str(pos.symbol),
-                quantity=Decimal(str(pos.qty)),
-                avg_price=Decimal(str(pos.avg_entry_price)),
-                current_price=Decimal(str(pos.current_price)),
-            )
-            for pos in positions
-        ]
+        try:
+            positions = self._client.get_all_positions()
+            return [
+                Position(
+                    ticker=str(pos.symbol),
+                    quantity=Decimal(str(pos.qty)),
+                    avg_price=Decimal(str(pos.avg_entry_price)),
+                    current_price=Decimal(str(pos.current_price)),
+                )
+                for pos in positions
+            ]
+        except Exception as e:
+            raise BrokerConnectionError(
+                f"Failed to get positions: {e}", original_error=e
+            ) from e
 
     def submit_market_order(
         self,
@@ -107,6 +124,7 @@ class AlpacaClient:
 
         Raises:
             ValueError: If inputs are invalid.
+            BrokerOrderError: If the order submission fails.
         """
         # Validate ticker
         if not ticker or not ticker.strip():
@@ -142,7 +160,13 @@ class AlpacaClient:
             request_params["qty"] = float(quantity)  # type: ignore[arg-type]
 
         request = MarketOrderRequest(**request_params)
-        order = self._client.submit_order(request)
+
+        try:
+            order = self._client.submit_order(request)
+        except Exception as e:
+            raise BrokerOrderError(
+                f"Failed to submit order for {ticker}: {e}", original_error=e
+            ) from e
 
         return OrderResult(
             order_id=str(order.id),
@@ -161,14 +185,20 @@ class AlpacaClient:
 
         Returns:
             OrderResult with order details.
-        """
-        # Close 100% of the position
-        order = self._client.close_position(
-            ticker,
-            close_options=ClosePositionRequest(percentage="100"),
-        )
 
-        # Determine side based on order
+        Raises:
+            BrokerOrderError: If closing the position fails.
+        """
+        try:
+            order = self._client.close_position(
+                ticker,
+                close_options=ClosePositionRequest(percentage="100"),
+            )
+        except Exception as e:
+            raise BrokerOrderError(
+                f"Failed to close position for {ticker}: {e}", original_error=e
+            ) from e
+
         side = OrderSide.SELL if order.side.value == "sell" else OrderSide.BUY
 
         return OrderResult(
