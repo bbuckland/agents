@@ -218,3 +218,77 @@ class TestAlpacaClient:
         assert result.notional is None
         mock_client_instance.close_position.assert_called_once()
         mock_close_request.assert_called_once_with(percentage="100")
+
+
+class TestOrderValidation:
+    """Tests for order input validation."""
+
+    @patch("quant.broker.TradingClient")
+    def test_rejects_negative_notional(self, mock_trading_client: MagicMock) -> None:
+        """Should reject orders with negative notional amount."""
+        from quant.broker import AlpacaClient, OrderSide
+
+        client = AlpacaClient(api_key="test", secret_key="test", paper=True)
+
+        with pytest.raises(ValueError, match="positive"):
+            client.submit_market_order(
+                ticker="AAPL",
+                side=OrderSide.BUY,
+                notional=Decimal("-100.00"),
+            )
+
+    @patch("quant.broker.TradingClient")
+    def test_rejects_zero_notional(self, mock_trading_client: MagicMock) -> None:
+        """Should reject orders with zero notional amount."""
+        from quant.broker import AlpacaClient, OrderSide
+
+        client = AlpacaClient(api_key="test", secret_key="test", paper=True)
+
+        with pytest.raises(ValueError, match="positive"):
+            client.submit_market_order(
+                ticker="AAPL",
+                side=OrderSide.BUY,
+                notional=Decimal("0"),
+            )
+
+    @patch("quant.broker.TradingClient")
+    def test_rejects_negative_quantity(self, mock_trading_client: MagicMock) -> None:
+        """Should reject orders with negative quantity."""
+        from quant.broker import AlpacaClient, OrderSide
+
+        client = AlpacaClient(api_key="test", secret_key="test", paper=True)
+
+        with pytest.raises(ValueError, match="positive"):
+            client.submit_market_order(
+                ticker="AAPL",
+                side=OrderSide.BUY,
+                quantity=Decimal("-5"),
+            )
+
+    @patch("quant.broker.TradingClient")
+    def test_rejects_zero_quantity(self, mock_trading_client: MagicMock) -> None:
+        """Should reject orders with zero quantity."""
+        from quant.broker import AlpacaClient, OrderSide
+
+        client = AlpacaClient(api_key="test", secret_key="test", paper=True)
+
+        with pytest.raises(ValueError, match="positive"):
+            client.submit_market_order(
+                ticker="AAPL",
+                side=OrderSide.BUY,
+                quantity=Decimal("0"),
+            )
+
+    @patch("quant.broker.TradingClient")
+    def test_rejects_empty_ticker(self, mock_trading_client: MagicMock) -> None:
+        """Should reject orders with empty ticker."""
+        from quant.broker import AlpacaClient, OrderSide
+
+        client = AlpacaClient(api_key="test", secret_key="test", paper=True)
+
+        with pytest.raises(ValueError, match="ticker"):
+            client.submit_market_order(
+                ticker="",
+                side=OrderSide.BUY,
+                notional=Decimal("100.00"),
+            )

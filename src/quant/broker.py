@@ -106,12 +106,25 @@ class AlpacaClient:
             OrderResult with order details.
 
         Raises:
-            ValueError: If neither or both notional and quantity are provided.
+            ValueError: If inputs are invalid.
         """
+        # Validate ticker
+        if not ticker or not ticker.strip():
+            raise ValueError("ticker must be a non-empty string")
+
+        # Validate amount specification
         if notional is None and quantity is None:
             raise ValueError("Either notional or quantity must be provided")
         if notional is not None and quantity is not None:
             raise ValueError("Cannot specify both notional and quantity")
+
+        # Validate notional is positive
+        if notional is not None and notional <= 0:
+            raise ValueError("notional must be positive")
+
+        # Validate quantity is positive
+        if quantity is not None and quantity <= 0:
+            raise ValueError("quantity must be positive")
 
         alpaca_side = (
             AlpacaOrderSide.BUY if side == OrderSide.BUY else AlpacaOrderSide.SELL
