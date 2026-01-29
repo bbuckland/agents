@@ -6,6 +6,7 @@ from decimal import Decimal
 from typing import Any, cast
 
 import pandas as pd
+from alpaca.data.enums import DataFeed
 from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.models import BarSet
 from alpaca.data.requests import StockBarsRequest
@@ -148,6 +149,7 @@ class MarketDataPipeline:
             timeframe=TimeFrame.Day,
             start=start,
             end=end,
+            feed=DataFeed.IEX,  # Use free IEX feed instead of SIP
         )
 
         bars_response = cast(BarSet, self.client.get_stock_bars(request))
@@ -191,6 +193,7 @@ class MarketDataPipeline:
             timeframe=TimeFrame.Day,
             start=start,
             end=end,
+            feed=DataFeed.IEX,  # Use free IEX feed instead of SIP
         )
 
         bars_response = cast(BarSet, self.client.get_stock_bars(request))
