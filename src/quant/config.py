@@ -2,7 +2,7 @@
 
 from typing import Annotated
 
-from pydantic import Field, field_validator
+from pydantic import Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -16,8 +16,8 @@ class Settings(BaseSettings):
     )
 
     # Alpaca broker settings
-    alpaca_api_key: str
-    alpaca_secret_key: str
+    alpaca_api_key: SecretStr
+    alpaca_secret_key: SecretStr
     alpaca_base_url: str
 
     # Database settings

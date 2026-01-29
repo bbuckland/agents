@@ -34,8 +34,8 @@ def get_broker() -> AlpacaClient:
     """Get cached broker client."""
     settings = get_settings()
     return AlpacaClient(
-        api_key=settings.alpaca_api_key,
-        secret_key=settings.alpaca_secret_key,
+        api_key=settings.alpaca_api_key.get_secret_value(),
+        secret_key=settings.alpaca_secret_key.get_secret_value(),
         paper=True,
     )
 
@@ -45,8 +45,8 @@ def get_data_pipeline() -> MarketDataPipeline:
     """Get cached data pipeline."""
     settings = get_settings()
     return MarketDataPipeline(
-        api_key=settings.alpaca_api_key,
-        secret_key=settings.alpaca_secret_key,
+        api_key=settings.alpaca_api_key.get_secret_value(),
+        secret_key=settings.alpaca_secret_key.get_secret_value(),
         watchlist=WATCHLIST,
     )
 

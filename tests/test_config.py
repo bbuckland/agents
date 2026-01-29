@@ -28,8 +28,8 @@ class TestSettings:
         with patch.dict(os.environ, valid_env_vars, clear=True):
             settings = Settings()
 
-            assert settings.alpaca_api_key == "test-api-key"
-            assert settings.alpaca_secret_key == "test-secret-key"
+            assert settings.alpaca_api_key.get_secret_value() == "test-api-key"
+            assert settings.alpaca_secret_key.get_secret_value() == "test-secret-key"
             assert settings.alpaca_base_url == "https://paper-api.alpaca.markets"
             assert settings.database_url == "postgresql://user:pass@localhost/db"
             assert settings.redis_url == "redis://localhost:6379"
@@ -119,3 +119,55 @@ class TestSettings:
                 Settings()
             error_str = str(exc_info.value)
             assert "alpaca_api_key" in error_str
+
+
+class TestSecretProtection:
+    """Tests for secret field protection."""
+
+    def test_api_key_not_in_repr(self) -> None:
+        """API key should not appear in repr output."""
+        env = {
+            "ALPACA_API_KEY": "super_secret_key_12345",
+            "ALPACA_SECRET_KEY": "even_more_secret",
+            "ALPACA_BASE_URL": "https://paper-api.alpaca.markets",
+            "DATABASE_URL": "postgresql://user:pass@localhost/db",
+            "REDIS_URL": "redis://localhost:6379",
+        }
+        with patch.dict(os.environ, env, clear=True):
+            settings = Settings()
+            repr_str = repr(settings)
+
+            assert "super_secret_key_12345" not in repr_str
+            assert "even_more_secret" not in repr_str
+
+    def test_api_key_not_in_str(self) -> None:
+        """API key should not appear in str output."""
+        env = {
+            "ALPACA_API_KEY": "super_secret_key_12345",
+            "ALPACA_SECRET_KEY": "even_more_secret",
+            "ALPACA_BASE_URL": "https://paper-api.alpaca.markets",
+            "DATABASE_URL": "postgresql://user:pass@localhost/db",
+            "REDIS_URL": "redis://localhost:6379",
+        }
+        with patch.dict(os.environ, env, clear=True):
+            settings = Settings()
+            str_output = str(settings)
+
+            assert "super_secret_key_12345" not in str_output
+            assert "even_more_secret" not in str_output
+
+    def test_can_access_secret_value(self) -> None:
+        """Should be able to access the secret value when needed."""
+        env = {
+            "ALPACA_API_KEY": "super_secret_key_12345",
+            "ALPACA_SECRET_KEY": "even_more_secret",
+            "ALPACA_BASE_URL": "https://paper-api.alpaca.markets",
+            "DATABASE_URL": "postgresql://user:pass@localhost/db",
+            "REDIS_URL": "redis://localhost:6379",
+        }
+        with patch.dict(os.environ, env, clear=True):
+            settings = Settings()
+
+            # Can get the actual value using get_secret_value()
+            assert settings.alpaca_api_key.get_secret_value() == "super_secret_key_12345"
+            assert settings.alpaca_secret_key.get_secret_value() == "even_more_secret"
