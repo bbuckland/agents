@@ -31,12 +31,21 @@ class MomentumBreakoutStrategy:
         signals: list[Signal] = []
 
         for ticker, indicators in context.indicators.items():
-            # Extract indicator values
-            price = float(indicators.get("price", 0.0))
-            sma20 = float(indicators.get("sma20", 0.0))
-            volume_ratio = float(indicators.get("volume_ratio", 0.0))
-            rsi = float(indicators.get("rsi", 50.0))
-            macd_histogram = float(indicators.get("macd_histogram", 0.0))
+            # Validate all required indicators are present
+            required_keys = ["price", "sma20", "volume_ratio", "rsi", "macd_histogram"]
+            if not all(key in indicators for key in required_keys):
+                continue  # Skip tickers with missing data
+
+            # Extract indicator values (safe now that we've validated)
+            price = float(indicators["price"])
+            sma20 = float(indicators["sma20"])
+            volume_ratio = float(indicators["volume_ratio"])
+            rsi = float(indicators["rsi"])
+            macd_histogram = float(indicators["macd_histogram"])
+
+            # Additional validation: skip if values are invalid
+            if price <= 0 or sma20 <= 0:
+                continue
 
             # Check all conditions for a BUY signal
             breakout = price > sma20

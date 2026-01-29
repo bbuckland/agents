@@ -172,3 +172,112 @@ class TestConfidenceCalculation:
 
         # Should be high confidence (other factors contribute too)
         assert confidence >= 50
+
+
+class TestMissingDataHandling:
+    """Tests for handling missing or invalid indicator data."""
+
+    def test_skips_ticker_with_missing_price(self) -> None:
+        """Should not generate signal when price is missing."""
+        from decimal import Decimal
+        from quant.models import MarketContext
+        from quant.strategies.momentum_breakout import MomentumBreakoutStrategy
+
+        strategy = MomentumBreakoutStrategy()
+        context = MarketContext(
+            cash=Decimal("2000"),
+            positions=[],
+            futures_signal=0.0,
+            indicators={
+                "AAPL": {
+                    # Missing "price" key
+                    "sma20": 180.0,
+                    "volume_ratio": 1.5,
+                    "rsi": 55.0,
+                    "macd_histogram": 1.0,
+                },
+            },
+        )
+
+        signals = strategy.analyze(context)
+        assert len(signals) == 0, "Should not generate signal with missing price"
+
+    def test_skips_ticker_with_missing_sma20(self) -> None:
+        """Should not generate signal when SMA20 is missing."""
+        from decimal import Decimal
+        from quant.models import MarketContext
+        from quant.strategies.momentum_breakout import MomentumBreakoutStrategy
+
+        strategy = MomentumBreakoutStrategy()
+        context = MarketContext(
+            cash=Decimal("2000"),
+            positions=[],
+            futures_signal=0.0,
+            indicators={
+                "AAPL": {
+                    "price": 185.0,
+                    # Missing "sma20" key
+                    "volume_ratio": 1.5,
+                    "rsi": 55.0,
+                    "macd_histogram": 1.0,
+                },
+            },
+        )
+
+        signals = strategy.analyze(context)
+        assert len(signals) == 0, "Should not generate signal with missing SMA20"
+
+    def test_skips_ticker_with_any_missing_indicator(self) -> None:
+        """Should not generate signal when any required indicator is missing."""
+        from decimal import Decimal
+        from quant.models import MarketContext
+        from quant.strategies.momentum_breakout import MomentumBreakoutStrategy
+
+        strategy = MomentumBreakoutStrategy()
+
+        required_keys = ["price", "sma20", "volume_ratio", "rsi", "macd_histogram"]
+
+        for missing_key in required_keys:
+            indicators = {
+                "price": 185.0,
+                "sma20": 180.0,
+                "volume_ratio": 1.5,
+                "rsi": 55.0,
+                "macd_histogram": 1.0,
+            }
+            del indicators[missing_key]
+
+            context = MarketContext(
+                cash=Decimal("2000"),
+                positions=[],
+                futures_signal=0.0,
+                indicators={"AAPL": indicators},
+            )
+
+            signals = strategy.analyze(context)
+            assert len(signals) == 0, f"Should skip when {missing_key} is missing"
+
+    def test_generates_signal_when_all_indicators_present(self) -> None:
+        """Should generate signal when all required indicators are present."""
+        from decimal import Decimal
+        from quant.models import MarketContext
+        from quant.strategies.momentum_breakout import MomentumBreakoutStrategy
+
+        strategy = MomentumBreakoutStrategy()
+        context = MarketContext(
+            cash=Decimal("2000"),
+            positions=[],
+            futures_signal=0.0,
+            indicators={
+                "AAPL": {
+                    "price": 185.0,
+                    "sma20": 180.0,
+                    "volume_ratio": 1.5,
+                    "rsi": 55.0,
+                    "macd_histogram": 1.0,
+                },
+            },
+        )
+
+        signals = strategy.analyze(context)
+        assert len(signals) == 1, "Should generate signal when all data present"
