@@ -3,10 +3,11 @@
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
-from typing import Any
+from typing import Any, cast
 
 import pandas as pd
 from alpaca.data.historical import StockHistoricalDataClient
+from alpaca.data.models import BarSet
 from alpaca.data.requests import StockBarsRequest
 from alpaca.data.timeframe import TimeFrame
 
@@ -149,7 +150,7 @@ class MarketDataPipeline:
             end=end,
         )
 
-        bars_response = self.client.get_stock_bars(request)
+        bars_response = cast(BarSet, self.client.get_stock_bars(request))
         result: dict[str, Bar] = {}
 
         for symbol in symbols:
@@ -192,7 +193,7 @@ class MarketDataPipeline:
             end=end,
         )
 
-        bars_response = self.client.get_stock_bars(request)
+        bars_response = cast(BarSet, self.client.get_stock_bars(request))
         symbol_bars = bars_response.data.get(ticker, [])
 
         if not symbol_bars:

@@ -1,5 +1,6 @@
 """FastAPI server for the quant engine."""
 
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from decimal import Decimal
 from functools import lru_cache
@@ -77,7 +78,7 @@ def get_engine() -> DecisionEngine:
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     """Application lifespan handler."""
     # Startup
     yield
@@ -163,7 +164,7 @@ async def analyze() -> AnalyzeResponse:
 
         # Build market context
         context = pipeline.build_context(
-            cash=account.cash,
+            cash=float(account.cash),
             positions=positions,
         )
 

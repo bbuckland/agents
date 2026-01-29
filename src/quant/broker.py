@@ -3,10 +3,11 @@
 from dataclasses import dataclass
 from decimal import Decimal
 from enum import Enum
-from typing import Any
+from typing import Any, cast
 
 from alpaca.trading.client import TradingClient
 from alpaca.trading.enums import OrderSide as AlpacaOrderSide
+from alpaca.trading.models import Order, Position as AlpacaPosition, TradeAccount
 from alpaca.trading.requests import ClosePositionRequest, MarketOrderRequest
 
 from quant.exceptions import BrokerConnectionError, BrokerOrderError
@@ -68,7 +69,7 @@ class AlpacaClient:
             BrokerConnectionError: If the API call fails.
         """
         try:
-            account = self._client.get_account()
+            account = cast(TradeAccount, self._client.get_account())
             return AccountInfo(
                 cash=Decimal(str(account.cash)),
                 equity=Decimal(str(account.equity)),
@@ -89,7 +90,7 @@ class AlpacaClient:
             BrokerConnectionError: If the API call fails.
         """
         try:
-            positions = self._client.get_all_positions()
+            positions = cast(list[AlpacaPosition], self._client.get_all_positions())
             return [
                 Position(
                     ticker=str(pos.symbol),
@@ -162,7 +163,7 @@ class AlpacaClient:
         request = MarketOrderRequest(**request_params)
 
         try:
-            order = self._client.submit_order(request)
+            order = cast(Order, self._client.submit_order(request))
         except Exception as e:
             raise BrokerOrderError(
                 f"Failed to submit order for {ticker}: {e}", original_error=e
@@ -190,16 +191,24 @@ class AlpacaClient:
             BrokerOrderError: If closing the position fails.
         """
         try:
-            order = self._client.close_position(
-                ticker,
-                close_options=ClosePositionRequest(percentage="100"),
+            order = cast(
+                Order,
+                self._client.close_position(
+                    ticker,
+                    close_options=ClosePositionRequest(percentage="100"),
+                ),
             )
         except Exception as e:
             raise BrokerOrderError(
                 f"Failed to close position for {ticker}: {e}", original_error=e
             ) from e
 
-        side = OrderSide.SELL if order.side.value == "sell" else OrderSide.BUY
+        order_side = order.side
+        side = (
+            OrderSide.SELL
+            if order_side is not None and order_side.value == "sell"
+            else OrderSide.BUY
+        )
 
         return OrderResult(
             order_id=str(order.id),

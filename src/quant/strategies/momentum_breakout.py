@@ -17,6 +17,7 @@ class MomentumBreakoutStrategy:
 
     name: str = "momentum_breakout"
     version: str = "1.0"
+    description: str = "Momentum breakout strategy that buys when price breaks above SMA20 with volume confirmation"
 
     def analyze(self, context: MarketContext) -> list[Signal]:
         """
