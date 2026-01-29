@@ -1,6 +1,9 @@
 """Tests for the strategy protocol and registry."""
 
+import threading
+import time
 from decimal import Decimal
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -186,3 +189,79 @@ class TestStrategyRegistry:
 
         assert registry.list_strategies() == []
         assert registry.all() == []
+
+
+class TestRegistryThreadSafety:
+    """Tests for registry thread safety."""
+
+    def test_concurrent_registration_is_safe(self) -> None:
+        """Registry should handle concurrent registrations safely."""
+        from quant.strategy import StrategyRegistry
+
+        registry = StrategyRegistry()
+        errors: list[Exception] = []
+
+        def register_strategy(name: str) -> None:
+            try:
+                for i in range(100):
+                    strategy = MagicMock()
+                    strategy.name = f"{name}_{i}"
+                    registry.register(strategy)
+            except Exception as e:
+                errors.append(e)
+
+        threads = [
+            threading.Thread(target=register_strategy, args=(f"thread_{i}",))
+            for i in range(10)
+        ]
+
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+
+        assert len(errors) == 0, f"Errors during concurrent registration: {errors}"
+        # Should have registered 10 threads * 100 strategies = 1000 strategies
+        assert len(registry.list_strategies()) == 1000
+
+    def test_concurrent_read_write_is_safe(self) -> None:
+        """Registry should handle concurrent reads and writes safely."""
+        from quant.strategy import StrategyRegistry
+
+        registry = StrategyRegistry()
+        errors: list[Exception] = []
+
+        # Pre-populate with some strategies
+        for i in range(10):
+            strategy = MagicMock()
+            strategy.name = f"initial_{i}"
+            registry.register(strategy)
+
+        def writer() -> None:
+            try:
+                for i in range(50):
+                    strategy = MagicMock()
+                    strategy.name = f"new_{i}"
+                    registry.register(strategy)
+                    time.sleep(0.001)
+            except Exception as e:
+                errors.append(e)
+
+        def reader() -> None:
+            try:
+                for _ in range(100):
+                    _ = registry.list_strategies()
+                    _ = registry.all()
+                    time.sleep(0.001)
+            except Exception as e:
+                errors.append(e)
+
+        threads = [threading.Thread(target=writer) for _ in range(3)]
+        threads += [threading.Thread(target=reader) for _ in range(5)]
+
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+
+        assert len(errors) == 0, f"Errors during concurrent access: {errors}"

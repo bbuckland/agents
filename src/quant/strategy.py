@@ -1,5 +1,6 @@
 """Strategy protocol and registry for the quant trading system."""
 
+import threading
 from typing import Protocol, runtime_checkable
 
 from quant.models import BacktestResult, MarketContext, Signal
@@ -59,11 +60,12 @@ class Strategy(Protocol):
 
 
 class StrategyRegistry:
-    """Registry for managing trading strategies."""
+    """Thread-safe registry for managing trading strategies."""
 
     def __init__(self) -> None:
         """Initialize an empty strategy registry."""
         self._strategies: dict[str, Strategy] = {}
+        self._lock = threading.RLock()
 
     def register(self, strategy: Strategy) -> None:
         """Register a strategy in the registry.
@@ -71,7 +73,8 @@ class StrategyRegistry:
         Args:
             strategy: The strategy to register.
         """
-        self._strategies[strategy.name] = strategy
+        with self._lock:
+            self._strategies[strategy.name] = strategy
 
     def get(self, name: str) -> Strategy:
         """Get a strategy by name.
@@ -85,9 +88,10 @@ class StrategyRegistry:
         Raises:
             KeyError: If no strategy with the given name exists.
         """
-        if name not in self._strategies:
-            raise KeyError(f"Strategy '{name}' not found in registry")
-        return self._strategies[name]
+        with self._lock:
+            if name not in self._strategies:
+                raise KeyError(f"Strategy '{name}' not found in registry")
+            return self._strategies[name]
 
     def list_strategies(self) -> list[str]:
         """List all registered strategy names.
@@ -95,7 +99,8 @@ class StrategyRegistry:
         Returns:
             A list of strategy names.
         """
-        return list(self._strategies.keys())
+        with self._lock:
+            return list(self._strategies.keys())
 
     def all(self) -> list[Strategy]:
         """Get all registered strategies.
@@ -103,4 +108,5 @@ class StrategyRegistry:
         Returns:
             A list of all registered strategies.
         """
-        return list(self._strategies.values())
+        with self._lock:
+            return list(self._strategies.values())
