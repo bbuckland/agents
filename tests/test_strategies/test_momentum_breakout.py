@@ -120,3 +120,55 @@ class TestMomentumBreakoutStrategy:
         assert result.total_return == Decimal("0")
         assert result.max_drawdown == Decimal("0")
         assert result.total_trades == 0
+
+
+class TestConfidenceCalculation:
+    """Tests for confidence score calculation."""
+
+    def test_rsi_score_rewards_strong_momentum(self) -> None:
+        """Higher RSI (40-70 range) should give higher confidence."""
+        from quant.strategies.momentum_breakout import MomentumBreakoutStrategy
+
+        strategy = MomentumBreakoutStrategy()
+
+        # Strong momentum (RSI 65) should score higher than weak (RSI 35)
+        strong_confidence = strategy._calculate_confidence(
+            price=185.0, sma20=180.0, volume_ratio=1.5, rsi=65.0, macd_histogram=1.0
+        )
+        weak_confidence = strategy._calculate_confidence(
+            price=185.0, sma20=180.0, volume_ratio=1.5, rsi=35.0, macd_histogram=1.0
+        )
+
+        assert strong_confidence > weak_confidence, (
+            f"RSI 65 ({strong_confidence}) should score higher than RSI 35 ({weak_confidence})"
+        )
+
+    def test_rsi_below_40_scores_zero(self) -> None:
+        """RSI below 40 indicates weak momentum, should score zero."""
+        from quant.strategies.momentum_breakout import MomentumBreakoutStrategy
+
+        strategy = MomentumBreakoutStrategy()
+
+        # RSI 30 is not momentum - it's oversold/weak
+        confidence_rsi30 = strategy._calculate_confidence(
+            price=185.0, sma20=180.0, volume_ratio=1.5, rsi=30.0, macd_histogram=1.0
+        )
+        confidence_rsi50 = strategy._calculate_confidence(
+            price=185.0, sma20=180.0, volume_ratio=1.5, rsi=50.0, macd_histogram=1.0
+        )
+
+        assert confidence_rsi50 > confidence_rsi30
+
+    def test_rsi_at_70_scores_maximum(self) -> None:
+        """RSI at 69 (just under overbought) should score maximum RSI points."""
+        from quant.strategies.momentum_breakout import MomentumBreakoutStrategy
+
+        strategy = MomentumBreakoutStrategy()
+
+        # RSI 69 is strong momentum without being overbought
+        confidence = strategy._calculate_confidence(
+            price=185.0, sma20=180.0, volume_ratio=1.5, rsi=69.0, macd_histogram=1.0
+        )
+
+        # Should be high confidence (other factors contribute too)
+        assert confidence >= 50

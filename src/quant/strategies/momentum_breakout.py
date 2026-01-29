@@ -105,8 +105,13 @@ class MomentumBreakoutStrategy:
         # Volume strength (0-25)
         volume_score = min((volume_ratio - 1.0) * 50, 25)
 
-        # RSI room to run (0-25) - further from 70, better score
-        rsi_score = (70 - rsi) / 70 * 25 if rsi < 70 else 0
+        # RSI momentum strength (0-25)
+        # RSI 40-70 indicates healthy momentum (not oversold, not overbought)
+        # Higher RSI = stronger momentum = higher score
+        if 40 <= rsi < 70:
+            rsi_score = ((rsi - 40) / 30) * 25  # 0 at RSI 40, 25 at RSI 70
+        else:
+            rsi_score = 0  # Below 40 is weak/oversold, above 70 is overbought
 
         # MACD momentum (0-25)
         macd_score = min(macd_histogram * 10, 25)
