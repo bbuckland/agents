@@ -1,12 +1,23 @@
 # OpenClaw Docker Deployment
 
-Docker configuration for running OpenClaw gateway on a remote server (e.g., Hetzner VPS).
+Docker configuration for running OpenClaw gateway on a remote server.
 
 ## Prerequisites
 
 - Docker and Docker Compose installed on the server
 - Tailscale installed and configured on the server
-- Tailscale installed on your Mac (for Tailscale Serve authentication)
+- SSH access configured (alias: `buckbot`)
+
+## Quick Start
+
+```bash
+# Copy environment template
+cp .env.example .env
+# Edit .env with your API keys
+
+# Deploy to server
+./scripts/deploy.sh
+```
 
 ## Setup
 
@@ -16,11 +27,10 @@ Docker configuration for running OpenClaw gateway on a remote server (e.g., Hetz
    # Edit .env with your values
    ```
 
-2. Create the data directories on your server:
+2. Copy config examples:
    ```bash
-   mkdir -p /home/clawd/clawdbot-state
-   mkdir -p /home/clawd/clawdbot-workspace
-   mkdir -p /home/clawd/clawdbot-docker
+   cp config/openclaw.json.example config/openclaw.json
+   # Edit config/openclaw.json - add your Telegram bot token
    ```
 
 3. Configure Tailscale Serve (on the server):
@@ -28,79 +38,51 @@ Docker configuration for running OpenClaw gateway on a remote server (e.g., Hetz
    tailscale serve --bg --https=443 http://localhost:18789
    ```
 
-4. Check for drift (optional):
+4. Deploy:
    ```bash
-   ./drift.sh buckbot  # Compare local vs server config
+   ./scripts/deploy.sh
    ```
 
-5. Deploy using the deploy script:
-   ```bash
-   ./deploy.sh buckbot  # or your SSH hostname
-   ```
+## Deployment Scripts
 
-   The deploy script:
-   - Syncs `openclaw.json` (preserves server-side Telegram bot token)
-   - Syncs Docker files and `.env`
-   - Rebuilds and restarts the gateway
+| Script | Purpose |
+|--------|---------|
+| `scripts/deploy.sh` | Push to GitHub, pull on server, restart all services |
+| `scripts/logs.sh` | Tail logs from server (optionally filter by service) |
+| `scripts/sync-skills.sh` | Quick skill sync without full restart |
 
-## Initial Server Setup
+### Usage
 
-On first deploy, manually set the Telegram bot token on the server:
 ```bash
-ssh buckbot
-cd /home/clawd/clawdbot-state
-jq '.channels.telegram.botToken = "YOUR_BOT_TOKEN"' openclaw.json > tmp.json && mv tmp.json openclaw.json
+# Full deploy
+./scripts/deploy.sh
+
+# View all logs
+./scripts/logs.sh
+
+# View specific service logs
+./scripts/logs.sh buckbot quant-trading
+
+# Sync skills only
+./scripts/sync-skills.sh
 ```
 
-## Connecting from Mac
+## Server Directory Structure
 
-1. Log into Tailscale on your Mac (same account as server)
-2. In OpenClaw Mac app, use "Direct (ws/wss)" with:
-   - URL: `wss://your-server.tailnet-name.ts.net/`
-3. Approve device pairing when prompted:
-   ```bash
-   docker exec <container> node dist/index.js devices list
-   docker exec <container> node dist/index.js devices approve <request-id>
-   ```
-
-## Adding Skills
-
-To add more skills, edit the `Dockerfile` to install required CLIs:
-
-```dockerfile
-# System packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gh \
-    jq \
-    && rm -rf /var/lib/apt/lists/*
-
-# NPM packages
-RUN npm install -g @steipete/summarize
 ```
-
-Then rebuild:
-```bash
-docker compose build --no-cache
-docker compose up -d
+~/agents/                    # Git clone of this repo
+├── docker-compose.yml       # Orchestrates all services
+├── openclaw/
+│   └── skills/              # Skills mounted into container
+├── quant-trading/
+└── workspace/               # Agent workspace (mounted volume)
 ```
 
 ## Configuration
 
-The gateway config is stored in `${OPENCLAW_CONFIG_DIR}/openclaw.json`. See `openclaw.json.example` for a complete template.
+The gateway config is stored in the Docker volume at `/home/node/.openclaw/openclaw.json`.
 
 ### Key Settings
-
-#### Gateway (Tailscale Serve)
-```json
-{
-  "gateway": {
-    "bind": "loopback",
-    "tailscale": { "mode": "serve" },
-    "auth": { "allowTailscale": true },
-    "trustedProxies": ["0.0.0.0/0", "::/0", "127.0.0.1", "::1"]
-  }
-}
-```
 
 #### Context Management (Prevent Session Bloat)
 ```json
@@ -132,46 +114,51 @@ The gateway config is stored in `${OPENCLAW_CONFIG_DIR}/openclaw.json`. See `ope
 | Setting | Purpose |
 |---------|---------|
 | `contextTokens: 100000` | Limits context window (default 200k is too large) |
-| `compaction.reserveTokensFloor` | Always keeps 20k tokens headroom for new messages |
-| `compaction.memoryFlush.enabled` | Proactively flushes memories to disk before compaction |
-| `session.reset.mode: "daily"` | Resets sessions at 4am daily to prevent bloat |
+| `compaction.reserveTokensFloor` | Always keeps 20k tokens headroom |
+| `compaction.memoryFlush.enabled` | Proactively flushes memories before compaction |
+| `session.reset.mode: "daily"` | Resets sessions at 4am daily |
 | `session.reset.idleMinutes: 120` | Also resets after 2 hours idle |
 
-#### Model Configuration
-```json
-{
-  "agents": {
-    "defaults": {
-      "model": {
-        "primary": "anthropic/claude-sonnet-4-20250514",
-        "fallbacks": ["anthropic/claude-sonnet-4-20250514", "anthropic/claude-opus-4-5"]
-      }
-    }
-  }
-}
+## Adding Skills
+
+Create a new directory under `skills/` with a `SKILL.md` file:
+
+```
+skills/
+├── quant-trading/
+│   └── SKILL.md
+└── new-skill/
+    └── SKILL.md
+```
+
+After adding skills, sync them:
+```bash
+./scripts/sync-skills.sh
+ssh buckbot "cd ~/agents && docker compose restart openclaw"
 ```
 
 ## Troubleshooting
 
 ### Session Bloat / Rate Limit Errors
 
-If you see `HTTP 429 rate_limit_error` or context overflow errors:
+If you see `HTTP 429 rate_limit_error`:
 
-1. Clear the session:
+1. Clear the session on the server:
    ```bash
-   docker exec <container> rm /home/node/.openclaw/agents/main/sessions/*.jsonl
+   ssh buckbot "docker exec agents-openclaw-1 rm /home/node/.openclaw/agents/main/sessions/*.jsonl"
    ```
 
-2. Restart the gateway:
+2. Restart:
    ```bash
-   docker compose restart
+   ssh buckbot "cd ~/agents && docker compose restart openclaw"
    ```
-
-3. Ensure context management settings are configured (see above)
 
 ### Check Logs
+
 ```bash
-docker logs <container> --tail 50
-# Or inside container:
-docker exec <container> cat /tmp/openclaw/openclaw-$(date +%Y-%m-%d).log | tail -30
+# Tail live logs
+./scripts/logs.sh
+
+# Or manually
+ssh buckbot "cd ~/agents && docker compose logs --tail=50 openclaw"
 ```

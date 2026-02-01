@@ -1,34 +1,64 @@
-version: '3.8'
-
 services:
+  openclaw:
+    build: ./openclaw
+    image: openclaw-custom:latest
+    ports:
+      - "18789:18789"
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+      OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      GH_TOKEN: ${GH_TOKEN}
+      GITHUB_TOKEN: ${GH_TOKEN}
+    volumes:
+      - openclaw-state:/home/node/.openclaw
+      - ./openclaw/skills:/home/node/skills:ro
+      - ${OPENCLAW_WORKSPACE_DIR:-./workspace}:/home/node/workspace
+    init: true
+    restart: unless-stopped
+    depends_on:
+      - quant-trading
+    command:
+      [
+        "node",
+        "dist/index.js",
+        "gateway",
+        "--bind",
+        "loopback",
+        "--port",
+        "18789"
+      ]
+
+  quant-trading:
+    build: ./quant-trading
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/quant
+      ALPACA_API_KEY: ${ALPACA_API_KEY}
+      ALPACA_SECRET_KEY: ${ALPACA_SECRET_KEY}
+      ALPACA_BASE_URL: ${ALPACA_BASE_URL:-https://paper-api.alpaca.markets}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
   postgres:
     image: postgres:16-alpine
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: quant
-      POSTGRES_PASSWORD: quant
       POSTGRES_DB: quant
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U quant"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 5s
       retries: 5
-
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+    restart: unless-stopped
 
 volumes:
-  postgres_data:
-  redis_data:
+  openclaw-state:
+  postgres-data:

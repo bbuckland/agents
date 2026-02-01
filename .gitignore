@@ -52,3 +52,12 @@ htmlcov/
 # Logs
 *.log
 logs/
+
+# Agents-specific
+openclaw/config/openclaw.json
+openclaw/config/auth-profiles.json
+workspace/
+
+# uv
+.uv/
+uv.lock
