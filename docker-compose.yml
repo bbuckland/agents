@@ -11,10 +11,14 @@ services:
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
       GH_TOKEN: ${GH_TOKEN}
       GITHUB_TOKEN: ${GH_TOKEN}
+      TELEGRAM_BUCKBOT_TOKEN: ${TELEGRAM_BUCKBOT_TOKEN}
+      TELEGRAM_EXPENSE_TOKEN: ${TELEGRAM_EXPENSE_TOKEN}
+      TELEGRAM_QUANT_TOKEN: ${TELEGRAM_QUANT_TOKEN}
     volumes:
       - openclaw-state:/home/node/.openclaw
       - ./openclaw/skills:/home/node/skills:ro
       - ${OPENCLAW_WORKSPACE_DIR:-./workspace}:/home/node/workspace
+      - ./openclaw/workspaces:/home/node/workspaces
     init: true
     restart: unless-stopped
     depends_on:
