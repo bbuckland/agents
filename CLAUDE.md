@@ -95,3 +95,29 @@ ssh buckbot "cd ~/agents && docker compose restart openclaw"
 3. Add service to `docker-compose.yml`
 4. Create skill in `openclaw/skills/new-agent/SKILL.md`
 5. Update this CLAUDE.md
+
+## Multi-Agent Setup
+
+The gateway runs multiple isolated agents, each with its own Telegram bot:
+
+| Agent | Bot | Purpose |
+|-------|-----|---------|
+| buckbot | @BuckBot | General assistant + agent monitor |
+| expense | @ExpenseBot | Oracle Expenses automation |
+| quant | @QuantBot | Trading assistant |
+
+### Configuration
+
+Multi-agent config: `openclaw/config/openclaw.multi-agent.json.example`
+
+### Workspaces
+
+Each agent has isolated workspace in `openclaw/workspaces/<agent>/`:
+- `SOUL.md` - Agent persona
+- Agent-specific files (reports, notes, etc.)
+
+### Skills
+
+- `skills/quant-trading/` - Used by QuantBot and BuckBot
+- `skills/expense/` - Used by ExpenseBot
+- `skills/agent-status/` - Used by BuckBot for monitoring
