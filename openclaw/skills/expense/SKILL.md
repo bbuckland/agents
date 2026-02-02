@@ -66,12 +66,19 @@ When user says "submit it":
 
 The browser runs on user's local machine via Playwright Connect.
 
-**Connection URL:** `ws://<configured-tailscale-host>:3000`
+**Connection URL:** `ws://${EXPENSE_PLAYWRIGHT_HOST}:3000`
+
+Configure your Mac's Tailscale hostname in `.env`:
+```bash
+EXPENSE_PLAYWRIGHT_HOST=your-mac-tailscale-hostname
+```
 
 **User must run locally:**
 ```bash
 npx playwright run-server --port 3000 --host 0.0.0.0
 ```
+
+See `oracle-expenses.md` for form navigation details.
 
 ## CSV Format
 

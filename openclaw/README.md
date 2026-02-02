@@ -181,9 +181,15 @@ The bot connects via Tailscale to `ws://<your-mac>:3000`.
 
 If you see `HTTP 429 rate_limit_error`:
 
-1. Clear the session on the server:
+1. Clear sessions on the server (for multi-agent, specify the agent):
    ```bash
+   # Single-agent mode
    ssh buckbot "docker exec agents-openclaw-1 rm /home/node/.openclaw/agents/main/sessions/*.jsonl"
+
+   # Multi-agent mode - clear specific agent
+   ssh buckbot "docker exec agents-openclaw-1 rm /home/node/.openclaw/agents/buckbot/sessions/*.jsonl"
+   ssh buckbot "docker exec agents-openclaw-1 rm /home/node/.openclaw/agents/expense/sessions/*.jsonl"
+   ssh buckbot "docker exec agents-openclaw-1 rm /home/node/.openclaw/agents/quant/sessions/*.jsonl"
    ```
 
 2. Restart:
