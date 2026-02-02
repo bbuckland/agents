@@ -61,3 +61,6 @@ workspace/
 # uv
 .uv/
 uv.lock
+
+# Worktrees
+.worktrees/
