@@ -137,6 +137,44 @@ After adding skills, sync them:
 ssh buckbot "cd ~/agents && docker compose restart openclaw"
 ```
 
+## Multi-Agent Setup
+
+This gateway supports multiple isolated agents, each with its own Telegram bot.
+
+### Quick Setup
+
+1. Create 3 Telegram bots via @BotFather
+2. Add tokens to `.env`:
+   ```bash
+   TELEGRAM_BUCKBOT_TOKEN=your_token
+   TELEGRAM_EXPENSE_TOKEN=your_token
+   TELEGRAM_QUANT_TOKEN=your_token
+   ```
+3. Copy multi-agent config:
+   ```bash
+   cp config/openclaw.multi-agent.json.example config/openclaw.json
+   ```
+4. Deploy: `./scripts/deploy.sh`
+
+### Agents
+
+| Agent | Workspace | Purpose |
+|-------|-----------|---------|
+| buckbot | `workspaces/buckbot/` | General assistant |
+| expense | `workspaces/expense/` | Oracle Expenses |
+| quant | `workspaces/quant/` | Trading |
+
+### ExpenseBot Browser Setup
+
+ExpenseBot uses Playwright Connect to control a browser on your local machine (for Okta Passkey auth).
+
+On your Mac:
+```bash
+npx playwright run-server --port 3000 --host 0.0.0.0
+```
+
+The bot connects via Tailscale to `ws://<your-mac>:3000`.
+
 ## Troubleshooting
 
 ### Session Bloat / Rate Limit Errors
