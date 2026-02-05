@@ -64,3 +64,6 @@ uv.lock
 
 # Worktrees
 .worktrees/
+
+# Pulumi
+infra/.pulumi/
