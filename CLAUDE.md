@@ -6,30 +6,32 @@ Multi-agent system with OpenClaw (orchestrator) and quant-trading (API).
 
 ```
 agents/
-├── openclaw/           # OpenClaw bot (Telegram gateway)
-│   ├── Dockerfile
-│   ├── config/         # Config examples
-│   ├── scripts/        # Deployment scripts
-│   └── skills/         # Skills (including quant-trading)
+├── infra/              # Pulumi infrastructure (Hetzner deployment)
+│   ├── src/            # TypeScript modules
+│   ├── scripts/        # Deploy, verify, logs, sync scripts
+│   └── Pulumi.yaml     # Project config
+├── openclaw/           # OpenClaw skills and workspaces
+│   ├── skills/         # Bot skills
+│   └── workspaces/     # Agent personas
 ├── quant-trading/      # Trading API
 │   ├── quant_trading/  # Python package
 │   ├── tests/
 │   └── Dockerfile
-├── docker-compose.yml  # All services
+├── docker-compose.yml  # Local dev (quant-trading + postgres)
 └── docs/plans/         # Design documents
 ```
 
 ## Architecture
 
-- **OpenClaw** is the orchestrator bot with skills
-- **quant-trading** is a FastAPI service OpenClaw calls via the `quant-trading` skill
-- Both run in Docker via `docker-compose.yml`
-- OpenClaw reaches quant-trading at `http://quant-trading:8000`
+- **OpenClaw** runs on Hetzner (managed by Pulumi), accessible via Tailscale
+- **quant-trading** is a FastAPI service for local development
+- Gateway: `https://openclaw-gateway.tail9150d4.ts.net/`
+- Server IP: `46.225.98.142` (cax11 ARM64, Nuremberg)
 
 ## Local Development
 
 ```bash
-# Run everything
+# Run quant-trading locally
 docker compose up -d
 
 # Run quant-trading standalone
@@ -39,62 +41,75 @@ cd quant-trading && uv run uvicorn quant_trading.api:app --reload
 cd quant-trading && uv run pytest
 ```
 
-## Deployment (Git-First Workflow)
+## Deployment (Pulumi)
 
-**Always commit and push before deploying to server.**
+Infrastructure is managed with Pulumi in `infra/`.
+
+### Prerequisites
 
 ```bash
-# 1. Make changes locally
-# 2. Test locally
-docker compose up -d
-docker compose logs
-
-# 3. Commit and push
-git add . && git commit -m "description"
-git push
-
-# 4. Deploy to server
-cd openclaw && ./scripts/deploy.sh
+brew install pulumi/tap/pulumi
+cd infra && pnpm install
+pulumi login
 ```
+
+### Deploy
+
+```bash
+cd infra && ./scripts/deploy.sh
+```
+
+### Verify Security
+
+```bash
+cd infra && ./scripts/verify-security.sh
+```
+
+### View Logs
+
+```bash
+cd infra && ./scripts/logs.sh [service]
+```
+
+### Sync Skills
+
+```bash
+cd infra && ./scripts/sync-skills.sh
+```
+
+### Secrets Management
+
+Secrets are stored encrypted in Pulumi Cloud:
+
+```bash
+cd infra
+pulumi config set --secret <namespace>:<key> <value>
+```
+
+Available namespaces: `openclaw`, `anthropic`, `github`, `ynab`, `telegram`, `tailscale`, `hcloud`
 
 ## Server Access
 
 ```bash
-# SSH alias
-ssh buckbot
+# SSH to server
+ssh openclaw@46.225.98.142
 
-# View logs
-cd openclaw && ./scripts/logs.sh
-# Or specific service:
-./scripts/logs.sh buckbot quant-trading
+# Via Tailscale (if on same tailnet)
+ssh openclaw@openclaw-gateway
 
-# Manual commands on server
-ssh buckbot "cd ~/agents && docker compose ps"
-ssh buckbot "cd ~/agents && docker compose restart openclaw"
+# View container status
+ssh openclaw@46.225.98.142 "docker compose ps"
+
+# Restart container
+ssh openclaw@46.225.98.142 "docker compose restart"
 ```
-
-## Deployment Scripts
-
-| Script | Purpose |
-|--------|---------|
-| `openclaw/scripts/deploy.sh` | Push to GitHub, pull on server, restart services |
-| `openclaw/scripts/logs.sh` | Tail logs from server |
-| `openclaw/scripts/sync-skills.sh` | Quick skill sync without restart |
 
 ## Safety Guidelines
 
-1. **Never commit secrets** — `.env` files are gitignored
-2. **Git-first workflow** — Always update repo before server
-3. **Test locally first** — Run `docker compose up` before deploying
-4. **Review database changes** — Migrations need careful review
-
-## Adding a New Agent
-
-1. Create directory: `new-agent/`
-2. Add Dockerfile and source code
-3. Add service to `docker-compose.yml`
-4. Create skill in `openclaw/skills/new-agent/SKILL.md`
-5. Update this CLAUDE.md
+1. **Secrets in Pulumi** — All secrets stored encrypted in Pulumi Cloud
+2. **Gateway on loopback** — Port 18789 only accessible via Tailscale
+3. **UFW firewall** — Only SSH (22) allowed from public internet
+4. **Test locally first** — Run `docker compose up` before deploying
 
 ## Multi-Agent Setup
 
@@ -106,10 +121,6 @@ The gateway runs multiple isolated agents, each with its own Telegram bot:
 | expense | @ExpenseBot | Oracle Expenses automation |
 | quant | @QuantBot | Trading assistant |
 
-### Configuration
-
-Multi-agent config: `openclaw/config/openclaw.multi-agent.json.example`
-
 ### Workspaces
 
 Each agent has isolated workspace in `openclaw/workspaces/<agent>/`:
@@ -118,6 +129,6 @@ Each agent has isolated workspace in `openclaw/workspaces/<agent>/`:
 
 ### Skills
 
-- `skills/quant-trading/` - Used by QuantBot and BuckBot
-- `skills/expense/` - Used by ExpenseBot
-- `skills/agent-status/` - Used by BuckBot for monitoring
+- `openclaw/skills/quant-trading/` - Used by QuantBot and BuckBot
+- `openclaw/skills/expense/` - Used by ExpenseBot
+- `openclaw/skills/agent-status/` - Used by BuckBot for monitoring
