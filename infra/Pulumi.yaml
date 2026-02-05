@@ -1,0 +1,7 @@
+name: agents-infra
+description: OpenClaw infrastructure on Hetzner
+runtime: nodejs
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: typescript
