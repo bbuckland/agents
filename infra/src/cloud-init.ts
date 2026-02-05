@@ -47,7 +47,7 @@ users:
     shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh_authorized_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG... # Add your SSH key
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjcfBksKxpPQMoiw7zq1OvBiQHJM97WlfgnXCv3EZjB buckbot
 
 write_files:
   # OpenClaw configuration

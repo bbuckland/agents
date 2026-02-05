@@ -21,7 +21,7 @@ export const secrets = {
 
 export const serverConfig = {
   name: config.get("serverName") || "openclaw-gateway",
-  location: config.get("location") || "fsn1", // Falkenstein, Germany
-  serverType: config.get("serverType") || "cx22", // 2 vCPU, 4GB RAM
+  location: config.get("location") || "nbg1", // Nuremberg, Germany
+  serverType: config.get("serverType") || "cax11", // 2 vCPU, 4GB RAM (ARM64)
   image: config.get("image") || "ubuntu-24.04",
 };

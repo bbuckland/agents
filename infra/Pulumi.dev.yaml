@@ -1,0 +1,19 @@
+config:
+  openclaw:gatewayToken:
+    secure: AAABAKqajralFjMJDuXw26ZNs5KVABN4LfC1U/CNswizIRVOTfk9OouoaCoHIMba5kBL+zEQpBvh1CBWEJtPXz1j1Ytp/7hzt5E7RswiwtQ=
+  anthropic:apiKey:
+    secure: AAABAHzKO/xVRI8x0DI/VL8Ms+x4qz47+20Vj/KstrJx6wbve1xvzqEWOUVlF+5KQIgzXKzkjKL7nAlHRQhcLJXVpOeul1EaQzAJ1zSlS53m8r2OZ+uhzSjOe2iTY7XQiFLY43khL+Ia8/XVv/vlLl5YJOJBLkpDEDa4dA0Z+pg7VQQmDPUFuDsSmhk=
+  github:token:
+    secure: AAABAK2Vob6PrHrPla50txmtXNhDdCf3xdKHw6al3aFEb7oI1rfiq1wUGMSz0SBpJDcpY6YHzyI58eEN25cPPm0zGY7lMr6c
+  ynab:apiKey:
+    secure: AAABAJTi7trWF4ZtabcBDHjN8iyTfwBtFLleW6+t8UKeyohqomjLKye4H52WkH6VNd7i5rjDswyjSkzg98S4bZsdZxCxFeVrqa3H
+  telegram:buckbotToken:
+    secure: AAABADXSx33CX3WbhnuDHyrlj5wzxZtRwQ8lNmjTfIFl4mSKSRBdLFCmKm5kxYDAEjObgoHbhC4rHiFtMsicnJE13uJNx5Yvg6U1b4O+
+  telegram:expenseToken:
+    secure: AAABAB/UMqJ2bIrddj6a0YcIZ7XO7k2NzQHRLSuIexnbbOfu621SD9c/6b0iqvPSVz0BMkWiLgDg/3HpEinWxl3T8T6h5MqUs6+sEPU6
+  telegram:quantToken:
+    secure: AAABAFsyZk4xsEROgIQ0gk9nN6PyJjwWYmGiLcvLCUSFZzNiL4tS1jErAQGsQt6avTl1ya5r7MLJK025o+uZWFdyJGBx4Past4mlKsCn
+  hcloud:token:
+    secure: AAABAPN/zk9+5KoKj3B2O9mTz719oOlWTd+bnKqqVdwmkcFOWI+8oLRKVLAuE+99LY4cw8oElN4WP60PMuNLRU7gbLGwhkx05gU39t07YIIf0rYQl1KfO13cTFWk4sTz
+  tailscale:authKey:
+    secure: AAABACucwYSH/PQZ90T6XlS6RxlPysHvERZhsmqHFp/UPoHkJMYJTKdULFBZxbHFp9xnkZYV4BwEdqHHnLulMJCOWCrtzImj50X9kErZsCgEqePzsVKHb4UL59im

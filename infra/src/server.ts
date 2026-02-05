@@ -11,10 +11,9 @@ export interface ServerOutputs {
 }
 
 export function createServer(cloudInitParams: CloudInitParams): ServerOutputs {
-  // Create SSH key resource
-  const sshKey = new hcloud.SshKey("openclaw-ssh-key", {
-    name: "openclaw-deploy-key",
-    publicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjcfBksKxpPQMoiw7zq1OvBiQHJM97WlfgnXCv3EZjB buckbot",
+  // Use existing SSH key by fingerprint (key already exists on Hetzner)
+  const sshKey = hcloud.getSshKeyOutput({
+    fingerprint: "0e:87:0c:1c:47:54:b4:82:47:eb:4b:b3:92:f0:16:a6",
   });
 
   // Generate cloud-init user data
@@ -26,7 +25,7 @@ export function createServer(cloudInitParams: CloudInitParams): ServerOutputs {
     serverType: serverConfig.serverType,
     location: serverConfig.location,
     image: serverConfig.image,
-    sshKeys: [sshKey.id],
+    sshKeys: [sshKey.id!.apply(id => String(id))],
     userData: userData,
     publicNets: [{
       ipv4Enabled: true,
