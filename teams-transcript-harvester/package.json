@@ -1,0 +1,18 @@
+{
+  "name": "teams-transcript-harvester",
+  "version": "2.0.0",
+  "description": "Automated extraction of Teams meeting transcripts to Obsidian vault using Playwright",
+  "main": "harvester.js",
+  "scripts": {
+    "harvest": "node harvester.js",
+    "test": "node harvester.js --dry-run",
+    "install-browsers": "playwright install chromium"
+  },
+  "dependencies": {
+    "playwright": "^1.41.0",
+    "fs-extra": "^11.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

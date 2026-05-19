@@ -1,0 +1,956 @@
+{
+  "pageTitle": "(12) Chat | Adam Green, Anthony Kessell, Ashley McDonald, +10 | Microsoft Teams",
+  "url": "https://teams.microsoft.com/v2/",
+  "possibleTitles": [
+    {
+      "tag": "H1",
+      "class": "fui-Subtitle2Stronger fui-Text ___1j9m3ce fk6fouc ",
+      "dataTid": null,
+      "text": "Chat"
+    },
+    {
+      "tag": "H2",
+      "class": "fui-Primitive ___1reklkh f16wzh4i f1ec9on5 fz5stix",
+      "dataTid": "chat-title",
+      "text": "Adam\nAnthony\nAshley\n, +10"
+    },
+    {
+      "tag": "H1",
+      "class": "",
+      "dataTid": null,
+      "text": "Oops"
+    }
+  ],
+  "possibleDates": [
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/7"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/7"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "5:00 PM"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "5:00 PM"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "3:54 PM"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "3:54 PM"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___s541xt0 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "3:02 PM"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "3:02 PM"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1:36 PM"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1:36 PM"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "9:45 AM"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "9:45 AM"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "9:38 AM"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "9:38 AM"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___s541xt0 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "1/29"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/29"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___s541xt0 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "1/23"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/23"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/23"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/23"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/22"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/22"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___s541xt0 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "1/22"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/22"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___s541xt0 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "1/22"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/22"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/21"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/21"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___s541xt0 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "1/21"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/21"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/21"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/21"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/16"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/16"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___s541xt0 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "1/16"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/16"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/15"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/15"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___s541xt0 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "1/15"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/15"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/15"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/15"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/15"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/15"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/15"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/15"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/14"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/14"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/14"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/14"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___25gz1m0 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/14"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/14"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/22"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/22"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/31"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/31"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___i63dw80 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "3:17 PM"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "3:17 PM"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/27"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/27"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/6"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/6"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "12/1/2025"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "12/1/2025"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/30"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/30"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___i63dw80 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "4:28 PM"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "4:28 PM"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___i63dw80 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "5:33 PM"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "5:33 PM"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "8/23/2024"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "8/23/2024"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "9/18/2025"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "9/18/2025"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/29"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/29"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "9/27/2024"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "9/27/2024"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "3/28/2025"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "3/28/2025"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "11/12/2025"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "11/12/2025"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "12/14/2025"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "12/14/2025"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "8/7/2025"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "8/7/2025"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "9/6/2024"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "9/6/2024"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___i63dw80 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "1/30"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/30"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "9/8/2025"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "9/8/2025"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "8/18/2025"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "8/18/2025"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "7:43 AM"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "7:43 AM"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "11/12/2024"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "11/12/2024"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/30"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/30"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/30"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/30"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/22"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/22"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "7/9/2025"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "7/9/2025"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "10/20/2025"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "10/20/2025"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "10/27/2025"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "10/27/2025"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/7"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/7"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___i63dw80 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "11:51 AM"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "11:51 AM"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___i63dw80 fk6fouc fy9rknc fl43uef fwrc4",
+      "text": "1/13"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/13"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/26"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/26"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "12/10/2025"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "12/10/2025"
+    },
+    {
+      "tag": "DIV",
+      "class": "timestamp ___1lr4la3 fk6fouc fy9rknc figsok6 fwrc4",
+      "text": "1/13"
+    },
+    {
+      "tag": "TIME",
+      "class": "",
+      "text": "1/13"
+    },
+    {
+      "tag": "TIME",
+      "class": "fui-ChatMessage__timestamp ___w6bamo0 fz5stix f11d",
+      "text": "1/21 8:13 AM"
+    }
+  ],
+  "aiSummaryContent": [],
+  "tabs": [
+    {
+      "text": "Open office app launcher",
+      "selected": null,
+      "dataTid": "waffle-open-button"
+    },
+    {
+      "text": "Expand search box",
+      "selected": null,
+      "dataTid": "title-bar-toggle-search-btn"
+    },
+    {
+      "text": "Settings and more, new activity",
+      "selected": null,
+      "dataTid": "more-options-header"
+    },
+    {
+      "text": "BB",
+      "selected": null,
+      "dataTid": "me-control-avatar-trigger"
+    },
+    {
+      "text": "Activity",
+      "selected": null,
+      "dataTid": "14d6962d-6eeb-4f48-8890-de55454bb136"
+    },
+    {
+      "text": "Chat",
+      "selected": null,
+      "dataTid": "3b64df9d-7e97-4d9c-ac5c-2e0a5d8e6f40"
+    },
+    {
+      "text": "Calendar",
+      "selected": null,
+      "dataTid": "ef56c0de-36fc-4ef8-b417-3d82ba9d073c"
+    },
+    {
+      "text": "Calls",
+      "selected": null,
+      "dataTid": "20c3440d-c67e-4420-9f80-0e50c39693df"
+    },
+    {
+      "text": "OneDrive",
+      "selected": null,
+      "dataTid": "5af6a76b-40fc-4ba1-af29-8f49b08e44fd"
+    },
+    {
+      "text": "Copilot",
+      "selected": null,
+      "dataTid": "b5abf2ae-c16b-4310-8f8a-d3bcdb52f162"
+    },
+    {
+      "text": "SupportCrew",
+      "selected": null,
+      "dataTid": "b8ec4e1a-e05a-49d0-ba3a-05119b8b62c0"
+    },
+    {
+      "text": "Campus App",
+      "selected": null,
+      "dataTid": "b1f0a339-e5e8-49d9-bbf4-e6368005abb4"
+    },
+    {
+      "text": "View more apps",
+      "selected": null,
+      "dataTid": "appbar-flyout-button"
+    },
+    {
+      "text": "Apps",
+      "selected": null,
+      "dataTid": "ac40aa4a-fef1-4896-aea2-46d1c14dbfd5"
+    },
+    {
+      "text": "More list options",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Show filter text box (⇧ ⌘ F)",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "New message (⌃ ⌘ N)",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "New items",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Unread",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Channels",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Chats",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Meeting chats",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "More filters",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Teams and channels",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Resize smaller",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Resize larger",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Resize smaller",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Resize larger",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Change the group profile picture",
+      "selected": null,
+      "dataTid": "tfw-group-chat-avatar-button"
+    },
+    {
+      "text": "Name group chat",
+      "selected": null,
+      "dataTid": "chat-title-name-group-chat"
+    },
+    {
+      "text": "Chat",
+      "selected": "true",
+      "dataTid": "tab-item-com.microsoft.chattabs.chat"
+    },
+    {
+      "text": "Shared",
+      "selected": "false",
+      "dataTid": "tab-item-com.microsoft.chattabs.files"
+    },
+    {
+      "text": "Add a tab",
+      "selected": null,
+      "dataTid": "add-tab-button"
+    },
+    {
+      "text": "Meet now",
+      "selected": null,
+      "dataTid": "audio-drop-in-button"
+    },
+    {
+      "text": "More call options",
+      "selected": null,
+      "dataTid": "audio-drop-in-more-options-button"
+    },
+    {
+      "text": "13",
+      "selected": null,
+      "dataTid": "chat-header-participant-count"
+    },
+    {
+      "text": "Open Copilot",
+      "selected": null,
+      "dataTid": "chat-copilot-button"
+    },
+    {
+      "text": "Open notes",
+      "selected": null,
+      "dataTid": "chat-fluid-thread-pane-button"
+    },
+    {
+      "text": "Find in chat (⌘ F)",
+      "selected": null,
+      "dataTid": "chat-header-find-in-chat-search"
+    },
+    {
+      "text": "More chat options",
+      "selected": null,
+      "dataTid": "chat-header-more-menu-trigger"
+    },
+    {
+      "text": "Screen sharing",
+      "selected": null,
+      "dataTid": "chat-header-share-screen-anchor"
+    },
+    {
+      "text": "Resize smaller",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Resize larger",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "More message options",
+      "selected": null,
+      "dataTid": "message-actions-menu-hidden-button"
+    },
+    {
+      "text": "Miro",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Copy component",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "More actions",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Open in Miro",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Manage Permissions",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Close notification",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Insert link (⌘ K)",
+      "selected": null,
+      "dataTid": "newMessageCommands-InsertHyperlink"
+    },
+    {
+      "text": "Delete",
+      "selected": null,
+      "dataTid": "newMessageCommands-discard-draft"
+    },
+    {
+      "text": "Show Formatting options (⇧ ⌘ X)",
+      "selected": null,
+      "dataTid": "sendMessageCommands-expand-compose"
+    },
+    {
+      "text": "Emoji, GIFs and Stickers",
+      "selected": null,
+      "dataTid": "sendMessageCommands-UnifiedFunPicker"
+    },
+    {
+      "text": "Rewrite with Copilot (⌃ ⌘ A)",
+      "selected": null,
+      "dataTid": "open-compose-copilot"
+    },
+    {
+      "text": "Loop components  (⌥ ⌘ L)",
+      "selected": null,
+      "dataTid": "sendMessageCommands-popup-semo"
+    },
+    {
+      "text": "Actions and apps",
+      "selected": null,
+      "dataTid": "sendMessageCommands-message-extension-flyout-command"
+    },
+    {
+      "text": "Send (⌘ Enter)",
+      "selected": null,
+      "dataTid": "sendMessageCommands-send"
+    },
+    {
+      "text": "Resize larger",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Resize smaller",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Retry",
+      "selected": null,
+      "dataTid": null
+    },
+    {
+      "text": "Clear cache and retry",
+      "selected": null,
+      "dataTid": null
+    }
+  ],
+  "mainAreaText": "Tara Pyne added Nicholas Ollis and 11 others to the chat.\nTara Pyne added Nicholas Ollis and 11 others to the chat.\nLink https://miro.com/app/board/uXjVGPgXc7w... by Tara Pyne\nTara Pyne\n1/21 8:13 AM\n\nhttps://miro.com/app/board/uXjVGPgXc7w=/?share_link_id=715600362431\n\nMiro\n\nLeadership Retreat - 2026 Project Prioritization\n\nInternational Technology\n\nTara Pyne\n\nOpen in Miro\nManage Permissions\nBy using Miro, you agree to the \nprivacy policy\n, \nterms of use\n, and \npermissions\n.\nhas context menu\nTara Pyne is out of office and may not respond\n\n\n\n\nhas context menu",
+  "recapAreaHtml": "<div class=\"fui-Flex ___1wrlx8u f22iagw f122n59\" data-tid=\"chat-calling-meeting-buttons\"><button type=\"button\" data-tid=\"audio-drop-in-button\" class=\"fui-Button r1alrhcs ___1baqeg0 fhovq9v fkfq4zb f11oyicx f1s2uweq fr80ssc f1ukrpxl fecsdlb fnwyq0v ft1hn21 fuxngvv fy5bs14 fsv2rcd f1h0usnq fs4ktlq f16h9ulv fx2bmrt f1omzyqd f1dfjoow f1j98vj9 fj8yq94 f4xjyn1 f1et0tmh f9ddjv3 f1wi8ngl ff9s3yw f1rispym f1ml7wda f1txa70a f1h01sg5 f1p1ovsp fb40n2d fff0cuw\" aria-label=\"Meet now\"><span class=\"fui-Button__icon rywnvv2 ___963sj20 f1nizpg2\"><svg class=\"fui-Icon-filled ___1vjqft9 fjseox fez10in fg4l7m0\" fill=\"currentColor\" aria-hidden=\"true\" width=\"1em\" height=\"1em\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M10 2c.41 0 .75.34.75.75v14.5a.75.75 0 0 1-1.5 0V2.75c0-.41.34-.75.75-.75Zm3.75 3c.41 0 .75.34.75.75v8.5a.75.75 0 0 1-1.5 0v-8.5c0-.41.34-.75.75-.75ZM7 5.75a.75.75 0 0 0-1.5 0v8.5a.75.75 0 0 0 1.5 0v-8.5ZM17.25 8c.41 0 .75.34.75.75v2.5a.75.75 0 0 1-1.5 0v-2.5c0-.41.34-.75.75-.75ZM3.5 8.75a.75.75 0 0 0-1.5 0v2.5a.75.75 0 0 0 1.5 0v-2.5Z\" fill=\"currentColor\"></path></svg><svg class=\"fui-Icon-regular ___12fm75w f1w7gpdv fez10in fg4l7m0\" fill=\"currentColor\" aria-hidden=\"true\" width=\"1em\" height=\"1em\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M10 2c.28 0 .5.22.5.5v15a.5.5 0 0 1-1 0v-15c0-.28.22-.5.5-.5Zm3.5 3c.28 0 .5.22.5.5v9a.5.5 0 0 1-1 0v-9c0-.28.22-.5.5-.5ZM7 5.5a.5.5 0 0 0-1 0v9a.5.5 0 0 0 1 0v-9ZM16.5 8c.28 0 .5.22.5.5v3a.5.5 0 0 1-1 0v-3c0-.28.22-.5.5-.5ZM4 8.5a.5.5 0 0 0-1 0v3a.5.5 0 0 0 1 0v-3Z\" fill=\"currentColor\"></path></svg></span><span dir=\"auto\" data-tid=\"audio-drop-in-button-text\" class=\"fui-StyledText ___1s8r2ua fkhj508 f1i3iumi fl43uef f1ahpp82 fnwyq0v f53rfo1 ffa5dzm\">Meet now</span></button><button type=\"button\" data-tid=\"audio-drop-in-more-options-button\" class=\"fui-Button r1alrhcs fui-MenuButton ___1jca3tu f1c21dwh fkfq4zb f11oyicx f1s2uweq fr80ssc f1ukrpxl fecsdlb f139oj5f ft1hn21 fuxngvv fwiml72 f1h0usnq fs4ktlq f"
+}

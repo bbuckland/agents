@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Browser profile (contains login sessions)
+.browser-profile/
+
+# State file (tracks processed meetings)
+harvester-state.json
+
+# Logs
+*.log
+
+# pnpm
+pnpm-lock.yaml

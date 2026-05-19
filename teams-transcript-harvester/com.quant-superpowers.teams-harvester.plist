@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.quant-superpowers.teams-harvester</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/node</string>
+        <string>/Users/bradley.buckland/Documents/personal/code/quant-superpowers/teams-transcript-harvester/harvester.js</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/bradley.buckland/Documents/personal/code/quant-superpowers/teams-transcript-harvester</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin</string>
+        <key>OBSIDIAN_VAULT</key>
+        <string>/Users/bradley.buckland/Documents/ObsidianVaults/TeamsTranscripts</string>
+        <key>HEADLESS</key>
+        <string>true</string>
+        <key>PUPPETEER_EXECUTABLE_PATH</key>
+        <string>/Applications/Google Chrome.app/Contents/MacOS/Google Chrome</string>
+    </dict>
+
+    <!-- Run hourly at :15 past the hour (avoid exactly on the hour) -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Minute</key>
+        <integer>15</integer>
+    </dict>
+
+    <!-- Also run at load (for testing) -->
+    <key>RunAtLoad</key>
+    <false/>
+
+    <!-- Logging -->
+    <key>StandardOutPath</key>
+    <string>/Users/bradley.buckland/Library/Logs/teams-transcript-harvester.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/bradley.buckland/Library/Logs/teams-transcript-harvester-error.log</string>
+
+    <!-- Don't run if already running -->
+    <key>KeepAlive</key>
+    <false/>
+
+    <!-- Nice priority (don't hog resources) -->
+    <key>Nice</key>
+    <integer>10</integer>
+</dict>
+</plist>
