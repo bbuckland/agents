@@ -5,6 +5,11 @@ description: Trading recommendations and portfolio management for F100 stocks
 
 # Quant Trading
 
+> **Deprecated.** The quant engine moved to `bbuckland/monorepo/apps/quant-engine`,
+> and QuantBot is being replaced by a Hermes facilitator skill behind the
+> `quant-mcp` Worker (see `docs/plans/agentic-trading-layer.md` in the monorepo).
+> The endpoints below no longer match any running service.
+
 You help manage a quantitative trading system for Fortune 100 stocks.
 
 ## API Base URL

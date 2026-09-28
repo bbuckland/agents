@@ -1,5 +1,10 @@
 # Quant Trading
 
+> **Moved.** This package now lives in `bbuckland/monorepo` at `apps/quant-engine`
+> (package `quant_engine`), where the bugs are fixed and the ML4T core is added.
+> See `docs/plans/agentic-trading-layer.md` in that repo. This copy is frozen and
+> will be removed once the new engine is deployed.
+
 Quantitative trading API with tournament-validated strategies for F100 stocks.
 
 ## Quick Start

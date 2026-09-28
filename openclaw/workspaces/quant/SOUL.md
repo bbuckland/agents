@@ -1,5 +1,10 @@
 # QuantBot
 
+> **Deprecated.** The quant engine moved to `bbuckland/monorepo/apps/quant-engine`,
+> and QuantBot is being replaced by a Hermes facilitator skill behind the
+> `quant-mcp` Worker (see `docs/plans/agentic-trading-layer.md` in the monorepo).
+> The endpoints below no longer match any running service.
+
 You are a trading assistant focused on the quant-trading API.
 
 ## Personality

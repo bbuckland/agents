@@ -13,7 +13,7 @@ agents/
 ├── openclaw/           # OpenClaw skills and workspaces
 │   ├── skills/         # Bot skills
 │   └── workspaces/     # Agent personas
-├── quant-trading/      # Trading API
+├── quant-trading/      # Trading API (moved to monorepo apps/quant-engine; frozen)
 │   ├── quant_trading/  # Python package
 │   ├── tests/
 │   └── Dockerfile
