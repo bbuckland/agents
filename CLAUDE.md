@@ -1,6 +1,8 @@
 # Agents Monorepo
 
-Multi-agent system with OpenClaw (orchestrator) and quant-trading (API).
+Multi-agent system built on OpenClaw (orchestrator).
+
+Trading lives in `bbuckland/monorepo` (`apps/quant-engine`, next to the YNAB MCP); see `docs/plans/agentic-trading-layer.md` there.
 
 ## Structure
 
@@ -13,33 +15,14 @@ agents/
 ├── openclaw/           # OpenClaw skills and workspaces
 │   ├── skills/         # Bot skills
 │   └── workspaces/     # Agent personas
-├── quant-trading/      # Trading API (moved to monorepo apps/quant-engine; frozen)
-│   ├── quant_trading/  # Python package
-│   ├── tests/
-│   └── Dockerfile
-├── docker-compose.yml  # Local dev (quant-trading + postgres)
 └── docs/plans/         # Design documents
 ```
 
 ## Architecture
 
 - **OpenClaw** runs on Hetzner (managed by Pulumi), accessible via Tailscale
-- **quant-trading** is a FastAPI service for local development
 - Gateway: `https://openclaw-gateway.tail9150d4.ts.net/`
 - Server IP: `46.225.98.142` (cax11 ARM64, Nuremberg)
-
-## Local Development
-
-```bash
-# Run quant-trading locally
-docker compose up -d
-
-# Run quant-trading standalone
-cd quant-trading && uv run uvicorn quant_trading.api:app --reload
-
-# Run tests
-cd quant-trading && uv run pytest
-```
 
 ## Deployment (Pulumi)
 
@@ -109,7 +92,7 @@ ssh openclaw@46.225.98.142 "docker compose restart"
 1. **Secrets in Pulumi** — All secrets stored encrypted in Pulumi Cloud
 2. **Gateway on loopback** — Port 18789 only accessible via Tailscale
 3. **UFW firewall** — Only SSH (22) allowed from public internet
-4. **Test locally first** — Run `docker compose up` before deploying
+4. **Preview before deploying** — Run `pulumi preview` in `infra/` first
 
 ## Multi-Agent Setup
 
@@ -119,7 +102,7 @@ The gateway runs multiple isolated agents, each with its own Telegram bot:
 |-------|-----|---------|
 | buckbot | @BuckBot | General assistant + agent monitor |
 | expense | @ExpenseBot | Oracle Expenses automation |
-| quant | @QuantBot | Trading assistant |
+| quant | @QuantBot | Retired: its workspace and skill were removed; the bot token is still wired in `infra/` until the server is next rebuilt |
 
 ### Workspaces
 
@@ -129,6 +112,5 @@ Each agent has isolated workspace in `openclaw/workspaces/<agent>/`:
 
 ### Skills
 
-- `openclaw/skills/quant-trading/` - Used by QuantBot and BuckBot
 - `openclaw/skills/expense/` - Used by ExpenseBot
 - `openclaw/skills/agent-status/` - Used by BuckBot for monitoring

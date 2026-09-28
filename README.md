@@ -7,31 +7,8 @@ Multi-agent monorepo for AI-powered automation.
 | Agent | Description | Port |
 |-------|-------------|------|
 | [openclaw](./openclaw) | Telegram bot orchestrator | 18789 |
-| [quant-trading](./quant-trading) | F100 stock trading API | 8000 |
 
-## Quick Start
-
-```bash
-# Copy environment template
-cp .env.example .env
-# Edit .env with your API keys
-
-# Run all services
-docker compose up -d
-
-# View logs
-docker compose logs -f
-```
-
-## Development
-
-```bash
-# Quant-trading standalone
-cd quant-trading
-uv sync
-uv run pytest
-uv run uvicorn quant_trading.api:app --reload
-```
+Trading moved to `bbuckland/monorepo` (`apps/quant-engine`, next to the YNAB MCP).
 
 ## Deployment
 
