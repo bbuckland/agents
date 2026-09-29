@@ -13,13 +13,13 @@ Trading moved to `bbuckland/monorepo` (`apps/quant-engine`, next to the YNAB MCP
 ## Deployment
 
 ```bash
-cd openclaw
-./scripts/deploy.sh  # Push to GitHub and restart on server
-./scripts/logs.sh    # Tail server logs
+cd infra
+./scripts/deploy.sh       # Pulumi deploy to the Hetzner server
+./scripts/sync-skills.sh  # Push openclaw/skills to the server
+./scripts/logs.sh         # Tail server logs
 ```
 
 ## Documentation
 
 - [CLAUDE.md](./CLAUDE.md) — AI context and operations guide
-- [OpenClaw README](./openclaw/README.md) — Bot setup and configuration
 - [Design Docs](./docs/plans/) — Architecture and planning documents
